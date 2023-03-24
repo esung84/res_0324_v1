@@ -1,0 +1,263 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+
+#wrap {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    font-family: 'Quicksand', sans-serif;
+}
+
+#sub_slider {
+    width: 100%;
+    height: auto;
+    padding: 15% 0;
+    background-image: url("../img/slider3.jpg");
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    position: relative;
+    bottom: 70px;
+    left: 0;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-attachment: fixed;
+}
+
+#sub_slider>.tonedown {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #202020;
+    opacity: 0.5;
+}
+
+#sub_slider>h1 {
+    font-weight: bold;
+    font-size: 40px;
+    color: #fff;
+    z-index: 5;
+    line-height: 50px;
+}
+
+#sub_slider>p {
+    font-size: 20px;
+    color: burlywood;
+    z-index: 5;
+    line-height: 25px;
+    margin: 10px;
+}
+
+#sub_slider>span {
+    font-size: 8px;
+    color: burlywood;
+    z-index: 5;
+    line-height: 15px;
+    margin: 10px 0 30px 0;
+    letter-spacing: 5px;
+}
+
+section {
+    width: 800px;
+    height: auto;
+    background-color: #fff;
+    z-index: 5;
+    margin: 0 auto;
+    opacity: 0.9;
+    border-radius: 20px;
+    padding: 3%;
+    text-align: left;
+
+}
+
+section>h3 {
+    font-size: 30px;
+    color: #000;
+    height: 40px;
+}
+
+section>h5 {
+    font-size: 20px;
+    color: #373636;
+    height: 25px;
+}
+
+section>h6 {
+    font-size: 18px;
+    color: #666;
+    height: 25px;
+}
+
+form {
+    width: 100%;
+    height: auto;
+    padding: 10% 1%;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    flex-flow: row wrap;
+}
+
+form>label {
+    font-size: 17px;
+    font-weight: 500;
+    color: #000;
+    width: 30%;
+    line-height: 50px;
+}
+
+input[type="text"] {
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding: 2%;
+    margin: 1%;
+}
+
+.name {
+    width: 33%;
+    height: 50px;
+}
+
+.t_box {
+    width: 68%;
+    height: 50px;
+}
+
+#calender {
+    width: 100%;
+    height: auto;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin: 20px 0;
+    padding: 20px;
+    display: flex;
+}
+
+
+#calender>.time {
+    width: 45%;
+    height: auto;
+    text-align: center;
+    padding: 10% 0;
+}
+
+.time>span {
+    font-size: 20px;
+    margin: 3%;
+    padding: 5px 10px;
+    background-color: #fff;
+    color: #000;
+    line-height: 40px;
+    display: inline-block;
+    border: 1px solid #fff;
+}
+
+.time>span:hover {
+    background-color: gold;
+    color: #fff;
+}
+
+
+.day {
+    background-color: #fbecaf;
+    height: auto;
+    width: 50%;
+    margin: 0px;
+    padding: 20px;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0px 40px 30px -20px rgba(0, 0, 0, 0.3);
+}
+
+.Calendar td {
+    width: 50px;
+    height: 50px;
+    color: #666;
+}
+
+.Calendar {
+    text-align: center;
+}
+
+.Calendar>thead>tr:first-child>td {
+    font-family: 'Questrial', sans-serif;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.Calendar>thead>tr:last-child>td {
+    font-family: 'Questrial', sans-serif;
+    font-weight: 600;
+}
+
+.Calendar>tbody>tr>td>p {
+    font-family: 'Montserrat', sans-serif;
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+    transition-duration: .2s;
+    line-height: 20px;
+    margin: 2.5px;
+    display: block;
+    text-align: center;
+}
+
+.Calendar .pastDay {
+    color: lightgray;
+}
+
+.Calendar .today {
+    background-color: #f54b42;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.Calendar .futureDay {
+    background-color: #FFFFFF;
+    cursor: pointer;
+}
+
+.Calendar .futureDay:hover {
+    background: #eee;
+}
+
+.futureDay.choiceDay,
+.today.choiceDay {
+    background: #0A174E;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+select {
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding: 2%;
+    margin: 1%;
+}
+
+select>option {
+    font-size: 15px;
+    height: auto;
+    display: block;
+}
+
+input[type="submit"] {
+    margin: 50px auto 0;
+    width: 200px;
+    line-height: 50px;
+    background-color: #787676;
+    color: #fff;
+    font-size: 20px;
+    letter-spacing: 1px;
+    border:none;
+}
+input[type="submit"]:hover {background-color: #000; cursor:pointer;}

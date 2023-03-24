@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About NYUS</title>
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/common_max_599.css" rel="stylesheet">
+    <link href="css/common_min_600andmax_1199.css" rel="stylesheet">
+    <link href="css/common_min_1200.css" rel="stylesheet">
+    <link href="css/form_min_1200.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/4d0d3ba6ba.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        window.onload = function () { buildCalendar(); }    // 웹 페이지가 로드되면 buildCalendar 실행
+
+        let nowMonth = new Date();  // 현재 달을 페이지를 로드한 날의 달로 초기화
+        let today = new Date();     // 페이지를 로드한 날짜를 저장
+        today.setHours(0, 0, 0, 0);    // 비교 편의를 위해 today의 시간을 초기화
+
+        // 달력 생성 : 해당 달에 맞춰 테이블을 만들고, 날짜를 채워 넣는다.
+        function buildCalendar() {
+
+            let firstDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), 1);     // 이번달 1일
+            let lastDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, 0);  // 이번달 마지막날
+
+            let tbody_Calendar = document.querySelector(".Calendar > tbody");
+            document.getElementById("calYear").innerText = nowMonth.getFullYear();             // 연도 숫자 갱신
+            document.getElementById("calMonth").innerText = leftPad(nowMonth.getMonth() + 1);  // 월 숫자 갱신
+
+            while (tbody_Calendar.rows.length > 0) {                        // 이전 출력결과가 남아있는 경우 초기화
+                tbody_Calendar.deleteRow(tbody_Calendar.rows.length - 1);
+            }
+
+            let nowRow = tbody_Calendar.insertRow();        // 첫번째 행 추가           
+
+            for (let j = 0; j < firstDate.getDay(); j++) {  // 이번달 1일의 요일만큼
+                let nowColumn = nowRow.insertCell();        // 열 추가
+            }
+
+            for (let nowDay = firstDate; nowDay <= lastDate; nowDay.setDate(nowDay.getDate() + 1)) {   // day는 날짜를 저장하는 변수, 이번달 마지막날까지 증가시키며 반복  
+
+                let nowColumn = nowRow.insertCell();        // 새 열을 추가하고
+
+
+                let newDIV = document.createElement("p");
+                newDIV.innerHTML = leftPad(nowDay.getDate());        // 추가한 열에 날짜 입력
+                nowColumn.appendChild(newDIV);
+
+                if (nowDay.getDay() == 6) {                 // 토요일인 경우
+                    nowRow = tbody_Calendar.insertRow();    // 새로운 행 추가
+                }
+
+                if (nowDay < today) {                       // 지난날인 경우
+                    newDIV.className = "pastDay";
+                }
+                else if (nowDay.getFullYear() == today.getFullYear() && nowDay.getMonth() == today.getMonth() && nowDay.getDate() == today.getDate()) { // 오늘인 경우           
+                    newDIV.className = "today";
+                    newDIV.onclick = function () { choiceDate(this); }
+                }
+                else {                                      // 미래인 경우
+                    newDIV.className = "futureDay";
+                    newDIV.onclick = function () { choiceDate(this); }
+                }
+            }
+        }
+
+        // 날짜 선택
+        function choiceDate(newDIV) {
+            if (document.getElementsByClassName("choiceDay")[0]) {                              // 기존에 선택한 날짜가 있으면
+                document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
+            }
+            newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
+        }
+
+        // 이전달 버튼 클릭
+        function prevCalendar() {
+            nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() - 1, nowMonth.getDate());   // 현재 달을 1 감소
+            buildCalendar();    // 달력 다시 생성
+        }
+        // 다음달 버튼 클릭
+        function nextCalendar() {
+            nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, nowMonth.getDate());   // 현재 달을 1 증가
+            buildCalendar();    // 달력 다시 생성
+        }
+
+        // input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수
+        function leftPad(value) {
+            if (value < 10) {
+                value = "0" + value;
+                return value;
+            }
+            return value;
+        }
+    </script>
+
+</head>
+
+
+<body>
+    <div id="wrap">
+        <header>
+            <div class="logo"><a href="index.html"><img src="img/logo1.png" alt="logo">NYUS</a>
+                <i class="fa-sharp fa-solid fa-bars" id="a"></i>
+            </div>
+            <nav class="nav_hidden">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li>About Us</li>
+                    <li><a href="index.html">Menu
+                            <ul class="menu_color">
+                                <li><a href="#">Menu Light</a></li>
+                                <li><a href="#">Menu Dark</a></li>
+                            </ul>
+                        </a></li>
+                    <li><a href="index.html">Testimonal</a></li>
+                    <li><a href="index.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="reservation"><a href="#">reservation</a></div>
+        </header>
+
+        <div id="sub_slider">
+            <div class="tonedown"></div>
+            <p>Book for the secial day Now</p>
+            <h1>Reservation</h1>
+            <span><i class="fa-sharp fa-solid fa-circle"></i><i class="fa-sharp fa-solid fa-circle"></i><i
+                    class="fa-sharp fa-solid fa-circle"></i><i class="fa-sharp fa-solid fa-circle"></i></span>
+            <section>
+                <h3>Reserve Table</h3>
+                <h5>Welcome!</h5>
+                <h6>please fill the form below accurantely to enable us serve you better!</h6>
+                <form>
+
+                    <label>Full Name</label>
+                    <input type="text" name="first_name" placeholder="*First name" maxlength="20" class="name">
+                    <input type="text" name="last_name" placeholder="*Last name" maxlength="20" class="name">
+                    <label>E-mail</label>
+                    <input type="text" name="email" placeholder="ex:myname@example.com" maxlength="20" class="t_box">
+                    <label>Phone</label>
+                    <input type="text" name="phone" maxlength="20" class="t_box">
+                    <label># Of Guest</label>
+                    <input type="text" name="guest" maxlength="20" class="t_box">
+
+                    <div id="calender">
+                        <div class="time">
+                            <span>12:00 PM</span>
+                            <span>14:00 PM</span>
+                            <span>16:00 PM</span>
+                            <span>18:00 PM</span>
+                            <span>20:00 PM</span>
+                        </div>
+                        <div class="day">
+                            <table class="Calendar">
+                                <thead>
+                                    <tr>
+                                        <td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td>
+                                        <td colspan="5">
+                                            <span id="calYear"></span>년
+                                            <span id="calMonth"></span>월
+                                        </td>
+                                        <td onClick="nextCalendar();" style="cursor:pointer;">&#62;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>일</td>
+                                        <td>월</td>
+                                        <td>화</td>
+                                        <td>수</td>
+                                        <td>목</td>
+                                        <td>금</td>
+                                        <td>토</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <label>Reservation Type</label>
+                    <select class="t_box">
+                        <option>Please Select</option>
+                        <option>Dinner</option>
+                        <option>Vip</option>
+                        <option>Birthday/Anniversary</option>
+                        <option>Night life</option>
+                        <option>Private</option>
+                        <option>Wedding</option>
+                        <option>Corporate</option>
+                        <option>Other</option>
+                    </select>
+                    <label>If Other,please specify</label>
+                    <input type="text" name="guest" maxlength="20" class="t_box">
+                    <label>Any special requests</label>
+                    <input type="text" name="guest" maxlength="20" class="t_box">
+                    <input type="submit" value="Reserve">
+                    </form>
+        </div>
+        </section>
+        <!--------------서브 메인-------------------->
+
+        <!--------------풋터-------------------->
+        <footer>
+            <div class="footer_box">
+                <h5><img src="img/logo1.png" alt="">NYUS</h5>
+                <p>Egestas sit in lobortis duis viverra enim eros ornare. Et tincidunt pretium curabitur vehicula
+                    turpis
+                    adipiscing donec. Et ut morbi magna quis purus aliquet.</p>
+                <a href="#"><span><i class="fa-brands fa-facebook"></i></span></a>
+                <a href="#"><span><i class="fa-brands fa-twitter"></i></span></a>
+                <a href="#"><span><i class="fa-brands fa-youtube"></i></span></a>
+                <a href="#"><span><i class="fa-brands fa-instagram"></i></span></a>
+                <a href="#"><span><i class="fa-brands fa-github"></i></span></a>
+            </div>
+            <div class="footer_box">
+                <h5>Our Location</h5>
+                <p>3 E 19th St, 123 Fifth Avenue,<br>
+                    NY 10160, New York, USA<br>
+                    1 234 567 890</p>
+                <a href="#"><span><i class="fa-sharp fa-solid fa-location-dot"></i>Get Direction</span></a>
+            </div>
+            <div class="footer_box">
+                <h5>Quick Link</h5>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Menu</a></li>
+                    <li><a href="#">Testimonial</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer_box">
+                <h5>Opening Hours</h5>
+                <img src="img/clock.png" alt="">
+                <p class="clock">Sunday to Wednesday<br>
+                    9AM - 10.30PM</p>
+                <img src="img/clock.png" alt="">
+                <p class="clock">Thursday, Friday, Saturday<br>
+                    9AM - 12.30AM</p>
+
+                <button>RESERVATION</button>
+            </div>
+
+            <div class="last">
+                <p>Copyright © 2023 Deli Restaurant</p>
+                <p>Powered by Deli Restaurant</p>
+            </div>
+    </div>
+    </div>
+
+</body>
+
+</html>
