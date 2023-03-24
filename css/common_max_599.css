@@ -121,10 +121,11 @@ footer {
     
     
     footer>.footer_box {
-        width: 250px;
+        width: 300px;
         height: auto;
         padding:0 0 5% 10%;
         margin: 10px;
+        background-color: red;
     }
     
     footer>.footer_box:first-of-type {
